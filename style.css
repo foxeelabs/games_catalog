@@ -1,0 +1,457 @@
+:root {
+    --wood-dark: #3e2723;
+    --wood-medium: #5d4037;
+    --wood-light: #8d6e63;
+    --wood-highlight: #a1887f;
+
+    --paper-bg: #f4ecd8;
+    --paper-dark: #d7ccc8;
+    --text-dark: #2c1a12;
+    --text-light: #f5f5f5;
+
+    --accent-red: #8e312b;
+    --accent-green: #3b533d;
+    --accent-blue: #2c4251;
+    --accent-gold: #c49a45;
+
+    --shelf-depth: 40px;
+    --shelf-thickness: 15px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Playfair Display', serif;
+    background-color: #2b201a;
+    background-image:
+        radial-gradient(#4a3831 15%, transparent 16%),
+        radial-gradient(#4a3831 15%, transparent 16%);
+    background-size: 30px 30px;
+    background-position: 0 0, 15px 15px;
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Banner Superior */
+.top-banner-container {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #d0d9f4;
+    /* Evita que el texto de abajo se encime */
+    z-index: 9999;
+}
+
+.top-banner {
+    height: 35px;
+    /* Tamaño discreto */
+    opacity: 0.7;
+}
+
+/* Typography & Header */
+.shop-header {
+    text-align: center;
+    padding: 0rem 1rem;
+    color: var(--paper-bg);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.shop-header h1 {
+    font-family: 'Eczar', serif;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.shop-header .subtitle {
+    font-style: italic;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Bookshelf Layout */
+.bookshelf-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    perspective: 1200px;
+    /* 3D perspective for child elements */
+}
+
+.bookshelf {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem 0;
+    /* Main wooden structure behind shelves */
+    background: linear-gradient(to right,
+            rgba(0, 0, 0, 0.6) 0%,
+            transparent 5%,
+            transparent 95%,
+            rgba(0, 0, 0, 0.6) 100%),
+        repeating-linear-gradient(90deg,
+            var(--wood-dark),
+            var(--wood-dark) 50px,
+            #33201d 50px,
+            #33201d 100px);
+    border: 15px solid var(--wood-dark);
+    border-radius: 4px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.shelf-row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    /* Align boxes to the bottom of the shelf */
+    padding: 1rem 2rem 0;
+    position: relative;
+    gap: 1.5rem;
+    min-height: 250px;
+    border-bottom: var(--shelf-thickness) solid var(--wood-medium);
+    /* Wood texture for the shelf base */
+    background-image: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 10%,
+            rgba(0, 0, 0, 0.4) 100%);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* Provide 3D depth to the shelf */
+.shelf-row::before {
+    content: '';
+    position: absolute;
+    bottom: calc(var(--shelf-thickness) * -1);
+    left: 0;
+    right: 0;
+    height: var(--shelf-thickness);
+    background: repeating-linear-gradient(90deg,
+            var(--wood-light),
+            var(--wood-light) 10px,
+            var(--wood-medium) 10px,
+            var(--wood-medium) 20px);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.6);
+}
+
+/* Game Box Styles */
+.game-box-container {
+    perspective: 800px;
+    /* Perspective for individual box pull animation */
+    z-index: 2;
+}
+
+.game-box {
+    width: 140px;
+    height: 200px;
+    background-color: var(--accent-red);
+    /* default */
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    box-shadow:
+        -5px 0 10px rgba(0, 0, 0, 0.4),
+        inset -2px 0 5px rgba(255, 255, 255, 0.2),
+        inset 2px 0 5px rgba(0, 0, 0, 0.3);
+
+    /* Vintage cardboard texture */
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E"),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(0, 0, 0, 0.2) 100%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    text-align: center;
+}
+
+/* Subtle book spine/box front details */
+.game-box::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.game-title {
+    font-family: 'Eczar', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--paper-bg);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    word-break: break-word;
+    line-height: 1.1;
+}
+
+.game-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Hover Interaction */
+.game-box:hover {
+    transform: translateY(-5px) translateZ(10px) rotateY(-2deg);
+    box-shadow:
+        -10px 10px 15px rgba(0, 0, 0, 0.5),
+        inset -2px 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* The Pull Animation */
+.game-box.pulled {
+    transform: translateZ(80px) translateY(-20px) rotateY(10deg) scale(1.1);
+    box-shadow:
+        -20px 25px 30px rgba(0, 0, 0, 0.6),
+        inset -2px 0 5px rgba(255, 255, 255, 0.3);
+    z-index: 10;
+}
+
+.game-box-container:has(.game-box.pulled) {
+    z-index: 100;
+}
+
+/* Color Variations for boxes */
+.box-color-1 {
+    background-color: var(--accent-red);
+}
+
+.box-color-2 {
+    background-color: var(--accent-blue);
+}
+
+.box-color-3 {
+    background-color: var(--accent-green);
+}
+
+.box-color-4 {
+    background-color: var(--accent-gold);
+    color: var(--text-dark);
+}
+
+.box-color-4 .game-title {
+    color: var(--text-dark);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.box-color-5 {
+    background-color: #5d4037;
+}
+
+/* Wood color */
+
+/* Modal / Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    padding: 1rem;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content.textured-paper {
+    background-color: var(--paper-bg);
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+    border: 8px solid var(--wood-medium);
+    border-radius: 4px;
+    max-width: 800px;
+    width: 90%;
+    /* Leave some side margin too */
+    max-height: 80vh;
+    /* 80% of viewport height */
+    overflow-y: auto;
+    /* Allow scrolling if content is long */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    position: relative;
+    transform: translateY(0);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-overlay.hidden .modal-content {
+    transform: translateY(50px);
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+    z-index: 10;
+}
+
+.close-btn:hover {
+    color: var(--accent-red);
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .modal-body {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+.modal-image-container {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.modal-image.textured-box {
+    width: 180px;
+    height: 250px;
+    border-radius: 4px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    /* The JS will set the specific background color class here */
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E"),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(0, 0, 0, 0.2) 100%);
+
+    /* Center placeholder text */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    font-family: 'Eczar', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--paper-bg);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    word-break: break-word;
+    line-height: 1.2;
+}
+
+.modal-icon {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.modal-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-info h2 {
+    font-family: 'Eczar', serif;
+    font-size: 1.7rem;
+    margin-bottom: 0.8rem;
+    border-bottom: 2px solid var(--wood-light);
+    padding-bottom: 0.5rem;
+    color: var(--wood-dark);
+}
+
+.modal-info .description {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.modal-actions {
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+    z-index: 5;
+}
+
+.vintage-btn {
+    display: inline-block;
+    background-color: var(--wood-medium);
+    color: var(--paper-bg);
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+    font-family: 'Eczar', serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 2px;
+    border: 1px solid var(--wood-dark);
+    box-shadow: 1px 1px 0 var(--wood-dark);
+    transition: all 0.2s ease;
+    text-transform: none;
+    letter-spacing: 0.5px;
+}
+
+.vintage-btn:hover {
+    background-color: var(--wood-light);
+    transform: translate(-1px, -1px);
+    box-shadow: 2px 2px 0 var(--wood-dark);
+}
+
+.vintage-btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 0 0 0 var(--wood-dark);
+}
+
+/* Responsive Shelf */
+@media (max-width: 767px) {
+    .game-box {
+        width: 120px;
+        height: 170px;
+    }
+
+    .game-title {
+        font-size: 1rem;
+    }
+
+    .bookshelf {
+        border-width: 10px;
+    }
+
+    .shelf-row {
+        min-height: 200px;
+        padding: 1rem 1rem 0;
+        gap: 1rem;
+    }
+}
