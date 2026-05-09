@@ -5,7 +5,7 @@ const gamesData = [
         icon: "🕵️",
         description: "Basado en el embustero juego de repartición de palabras. Intenta engañar a tus amigos y trata de encontrar a los incógnitos antes de que sea demasiado tarde.",
         colorClass: "box-color-1",
-        link: "#app-incognito"
+        link: "https://elincognito.noqlabs.com/"
     },
     {
         id: "pirinola",
@@ -21,7 +21,7 @@ const gamesData = [
         icon: "😈",
         description: "Un juego de roles donde tenemos que descubrir a los jugadores que estarán intentando sabotear el juego y corromper a los aldeanos.",
         colorClass: "box-color-3",
-        link: "#app-demonios"
+        link: "http://thejudgement.noqlabs.com/"
     },
     {
         id: "marmotines",
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bookshelfContainer = document.getElementById('bookshelf');
     const modalOverlay = document.getElementById('game-modal');
     const closeModalBtn = document.getElementById('close-modal');
-    
+
     // Modal Elements
     const modalTitle = document.getElementById('modal-title');
     const modalDesc = document.getElementById('modal-desc');
@@ -69,8 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalImage = document.getElementById('modal-image');
 
     // Configuration for shelves
-    const itemsPerShelf = window.innerWidth < 768 ? 3 : 4; 
-    
+    const itemsPerShelf = window.innerWidth < 768 ? 3 : 4;
+
     function renderShelves() {
         bookshelfContainer.innerHTML = '';
         let currentShelf = null;
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const box = document.createElement('div');
             box.className = `game-box ${game.colorClass}`;
             box.setAttribute('data-id', game.id);
-            
+
             // Icon
             const icon = document.createElement('div');
             icon.className = 'game-icon';
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const title = document.createElement('div');
             title.className = 'game-title';
             title.textContent = game.title;
-            
+
             box.appendChild(icon);
             box.appendChild(title);
             boxContainer.appendChild(box);
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Interaction Event
             box.addEventListener('click', () => handleBoxClick(box, game));
         });
-        
+
         // Add an empty shelf at the bottom if needed to look complete
         const remainder = gamesData.length % itemsPerShelf;
         if (remainder !== 0 || gamesData.length === 0) {
@@ -142,10 +142,10 @@ document.addEventListener('DOMContentLoaded', () => {
         modalTitle.textContent = gameData.title;
         modalDesc.textContent = gameData.description;
         modalLink.href = gameData.link;
-        
+
         // Match the modal box color to the clicked game box color
         modalImage.className = `modal-image textured-box ${gameData.colorClass}`;
-        
+
         // Add the game icon and name into the placeholder art for now
         modalImage.innerHTML = `<span class="modal-icon">${gameData.icon}</span><br>${gameData.title}`;
 
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function closeModal() {
         modalOverlay.classList.add('hidden');
-        
+
         // Reset pulled boxes after modal is hidden
         setTimeout(() => {
             document.querySelectorAll('.game-box.pulled').forEach(el => {
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Close Events
     closeModalBtn.addEventListener('click', closeModal);
-    
+
     // Close on clicking outside the modal content
     modalOverlay.addEventListener('click', (e) => {
         if (e.target === modalOverlay) {
